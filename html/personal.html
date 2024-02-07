@@ -1,0 +1,117 @@
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>ข้อมูลเจ้าหน้าที่/บุคลากร</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="home.html">หน้าหลัก</a></li>
+                <li class="breadcrumb-item">เจ้าหน้าที่/บุคลากร</li>
+            </ol>
+        </nav>
+    </div>
+    <!-- End Page Title -->
+
+    <section class="section">
+        <div class="col-xl-12">
+            <div class="card p-4">
+                <form action="" id="personalform">
+                    <div class="row">
+                        <input type="hidden" name="edit_id" id="edit_id">
+                        <div class="col-sm-3">
+                            <label for="">รหัสเจ้าหน้าที่/บุคลากร</label>
+                            <input type="text" id="Personal_ID" name="Personal_ID" class="form-control" placeholder="รหัสเจ้าหน้าที่" minlength="5" maxlength="7" required style="font-size: 14px;">
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="">คำนำหน้า</label>
+                            <select name="prefixCode" id="prefixCode" class="form-control" required>
+                                          <option value="">--เลือก--</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="">ชื่อ</label>
+                            <input type="text" id="Fname" name="Fname" class="form-control" placeholder="ชื่อ" required style="font-size: 14px;">
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="">สกุล</label>
+                            <input type="text" id="Lname" name="Lname" class="form-control" placeholder="สกุล" required style="font-size: 14px;">
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="">ตำแหน่ง</label>
+                            <select name="positCode" id="positCode" class="form-control" required style="font-size: 14px;">
+                                          <option value="">--เลือก--</option>
+                                        </select>
+                        </div>
+                        <!-- <div class="col-sm-3">
+                            <label for="">ฝ่ายงาน</label>
+                            <select name="cottonCode" id="cottonCode" class="form-control" style="font-size: 14px;" required>
+                                          <option value="">--เลือก--</option>
+                                        </select>
+                        </div> -->
+                        <div class="col-sm-3">
+                            <label for="">แผนก/หน่วยงาน</label>
+                            <select name="departCode" id="departCode" class="form-control" style="font-size: 14px;" required>
+                                          <option value="">--เลือก--</option>
+                                        </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="">สิทธิผู้ใช้งาน</label>
+                            <select name="accessCode" id="accessCode" class="form-control" style="font-size: 14px;" required>
+                                            <option value="">--เลือก--</option>
+                                        </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="">สถานะ</label>
+                            <select name="statusCode" id="statusCode" class="form-control" style="font-size: 14px;" >
+                                <option value="1">ใช้งาน</option>
+                                <option value="0">ปิดการใช้งาน</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="">รหัสผ่าน</label>
+                            <input type="password" name="Password" id="Password" class="form-control" placeholder="รหัสผ่าน" required  style="font-size: 14px;" >
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="">รหัสผ่าน(อีกครั้ง)</label>
+                            <input type="password" name="Password2" id="Password2" class="form-control" placeholder="รหัสผ่าน" required style="font-size: 14px;" >
+                        </div>
+
+                        <div class="col-sm-2">
+                            <label for="">&nbsp;</label>
+                            <button type="submit" id="btnSave" class="btn btn-success form-control" style="font-size: 14px;">บันทึก</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="showPersonal"></div>
+            <!-- The Modal -->
+            <div class="modal " id="myModal" style="border-radius: 100px;">
+                <div class="modal-dialog" style="max-width: 40%;" role="document">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header text-white" style="background-image: linear-gradient(-90deg, #1e24ee , rgb(76, 122, 238), rgb(28, 114, 243));">
+                            <h4 class="modal-title" style="font-size: 18px;">ข้อมูลบุคลากร</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body" id="showview">
+
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+<!-- End #main -->
+
+<!-- Template Main JS File -->
+<script src="assets/js/main.js"></script>
+<script src="js/personal.js"></script>

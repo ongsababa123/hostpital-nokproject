@@ -1,0 +1,54 @@
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>ข้อมูลแผนก/หน่วยงาน</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">หน้าหลัก</a></li>
+                <li class="breadcrumb-item">แผนก/หน่วยงาน</li>
+            </ol>
+        </nav>
+    </div>
+    <!-- End Page Title -->
+
+    <section class="section">
+        <div class="col-xl-12">
+            <div class="card p-4">
+                <form action="" id="departform">
+                    <div class="row">
+                        <div class="col-3">
+                            <label for="">รหัสแผนก/หน่วยงาน</label>
+                            <input type="text" id="departCode" name="departCode" class="form-control" placeholder="รหัส" required style="font-size: 14px;">
+                        </div>
+                        <div class="col-3">
+                            <label for="">ชื่อแผนก/หน่วยงาน</label>
+                            <input type="text" id="departName" name="departName" class="form-control " placeholder="ชื่อ " required style="font-size: 14px;">
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="">หัวหน้างาน</label>
+                            <select name="Personal_ID" id="Personal_ID" class="form-control" style="font-size: 14px;" required>
+                                <option value="">-เลือก-</option>
+                            </select>
+                        </div>
+                        <!-- <div class="col-sm-3">
+                            <label for="">ฝ่าย</label>
+                            <select name="Group_ID" id="Group_ID" class="form-control" style="font-size: 14px;">
+                                <option value="">-เลือก-</option>
+                            </select>
+                        </div> -->
+                        <div class="col-2">
+                            <label for=" ">&nbsp;</label>
+                            <button type="submit" id="btnSave" class="btn btn-success form-control" style="font-size: 14px;">บันทึก</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="showdepart"></div>
+        </div>
+    </section>
+</main>
+<!-- End #main -->
+
+<!-- Template Main JS File -->
+<script src="assets/js/main.js"></script>
+<script src="js/department.js"></script>

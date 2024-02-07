@@ -1,0 +1,157 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>แลกเวลาปฏิบัติงาน</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">หน้าหลัก</a></li>
+                <li class="breadcrumb-item">คำร้อง</li>
+            </ol>
+        </nav>
+    </div>
+    <!-- End Page Title -->
+
+    <section class="section">
+        <div class="col-xl-12">
+            <div class="card p-4">
+                <form action="javascript:void(0)" id="petitionform" method="post">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="">เรื่อง ขออนุมัติแลกเปลี่ยนการปฏิบัติหน้าที่เวร</label>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inputText" class="col-sm-2 col-form-label">เรียน ผอ.รพ.ค่าจักรพงษ์ ผ่าน</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="subject" name="subject" required />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4">
+                            <label for="">กระผม/ดิฉัน</label>
+                            <input type="text" class="form-control" id="name" name="name" required />
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="">ตำแหน่ง</label>
+                            <input type="text" class="form-control" id="position" name="position" required />
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="">ได้ปฏิบัติหน้าที่</label>
+                            <input type="text" class="form-control" id="duty" name="duty" required />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-1">
+                            <label for="">ในวันที่</label>
+                            <input type="number" class="form-control" id="day" name="day" required />
+                        </div>
+                        <div class="col-sm-2">
+                            <label for="">เดือน</label>
+                            <select class="form-select" id="month" name="month" required>
+                                <option value="มกราคม">มกราคม</option>
+                                <option value="กุมภาพันธ์">กุมภาพันธ์</option>
+                                <option value="มีนาคม">มีนาคม</option>
+                                <option value="เมษายน">เมษายน</option>
+                                <option value="พฤษภาคม">พฤษภาคม</option>
+                                <option value="มิถุนายน">มิถุนายน</option>
+                                <option value="กรกฎาคม">กรกฎาคม</option>
+                                <option value="สิงหาคม">สิงหาคม</option>
+                                <option value="กันยายน">กันยายน</option>
+                                <option value="ตุลาคม">ตุลาคม</option>
+                                <option value="พฤศจิกายน">พฤศจิกายน</option>
+                                <option value="ธันวาคม">ธันวาคม</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-1">
+                            <label for="">พ.ศ.</label>
+                            <input type="number" class="form-control" id="year" name="year" required />
+                        </div>
+                        <div class="col-sm-8">
+                            <label for="">มีความประสงค์ขออนุมัติแลกเปลี่ยนการปฏิบัติหน้าที่</label>
+                            <input type="text" class="form-control" id="request" name="request" required />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4">
+                            <label for="">โดยให้...ปฏิบัติหน้าที่นายทหารเวร แทน</label>
+                            <input type="text" class="form-control" id="substitute" name="substitute" required />
+                        </div>
+                        <div class="col-sm-1">
+                            <label for="">ในวันที่</label>
+                            <input type="number" class="form-control" id="substitute_day" name="substitute_day"
+                                required />
+                        </div>
+                        <div class="col-sm-2">
+                            <label for="">เดือน</label>
+                            <select class="form-select" id="substitute_month" name="substitute_month" required>
+                                <option value="มกราคม">มกราคม</option>
+                                <option value="กุมภาพันธ์">กุมภาพันธ์</option>
+                                <option value="มีนาคม">มีนาคม</option>
+                                <option value="เมษายน">เมษายน</option>
+                                <option value="พฤษภาคม">พฤษภาคม</option>
+                                <option value="มิถุนายน">มิถุนายน</option>
+                                <option value="กรกฎาคม">กรกฎาคม</option>
+                                <option value="สิงหาคม">สิงหาคม</option>
+                                <option value="กันยายน">กันยายน</option>
+                                <option value="ตุลาคม">ตุลาคม</option>
+                                <option value="พฤศจิกายน">พฤศจิกายน</option>
+                                <option value="ธันวาคม">ธันวาคม</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-1">
+                            <label for="">พ.ศ.</label>
+                            <input type="number" class="form-control" id="substitute_year" name="substitute_year"
+                                required />
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="">เนื่องจาก</label>
+                            <input type="text" class="form-control" id="reason" name="reason" required />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inputText" class="col-sm-3 col-form-label">และกระผมจะกลับมาปฏิบัตหน้าที่นายทหารเวร
+                            แทน</label>
+                        <div class="col-sm-1">
+                            <label for="">ในวันที่</label>
+                            <input type="number" class="form-control" id="return_day" name="return_day" required />
+                        </div>
+                        <div class="col-sm-2">
+                            <label for="">เดือน</label>
+                            <select class="form-select" id="return_month" name="return_month" required>
+                                <option value="มกราคม">มกราคม</option>
+                                <option value="กุมภาพันธ์">กุมภาพันธ์</option>
+                                <option value="มีนาคม">มีนาคม</option>
+                                <option value="เมษายน">เมษายน</option>
+                                <option value="พฤษภาคม">พฤษภาคม</option>
+                                <option value="มิถุนายน">มิถุนายน</option>
+                                <option value="กรกฎาคม">กรกฎาคม</option>
+                                <option value="สิงหาคม">สิงหาคม</option>
+                                <option value="กันยายน">กันยายน</option>
+                                <option value="ตุลาคม">ตุลาคม</option>
+                                <option value="พฤศจิกายน">พฤศจิกายน</option>
+                                <option value="ธันวาคม">ธันวาคม</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-1">
+                            <label for="">พ.ศ.</label>
+                            <input type="number" class="form-control" id="return_year" name="return_year" required />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-success">
+                                บันทึกข้อมูล
+                            </button>
+                            <button type="reset" class="btn btn-danger">รีเซ็ทข้อมูล</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="showPersonal"></div>
+        </div>
+    </section>
+</main>
+<!-- End #main -->
+
+<!-- Template Main JS File -->
+<script src="assets/js/main.js"></script>
+<script src="js/petition.js"></script>

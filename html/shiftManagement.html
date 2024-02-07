@@ -1,0 +1,133 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>จัดการตารางปฏิบัติงาน</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="home.html">หน้าหลัก</a></li>
+                <li class="breadcrumb-item">จัดการตารางปฏิบัติงาน</li>
+            </ol>
+        </nav>
+    </div>
+    <section class="section">
+        <div class="col-xl-12 text-center">
+            <div class="row">
+                <div class="col-xl-4 mt-2">
+                    <div class="calendarManage">
+                        <div class="month"><a href="#" id="before_button" class="nav"><i class="fas fa-angle-left"></i></a><div><span id="montShow"></span> <span class="year" id="yearShow"></span></div><a href="#" class="nav" id="next_button"><i class="fas fa-angle-right"></i></a></div>
+                        <div class="days">
+                          <span>Mon</span>
+                          <span>Tue</span>
+                          <span>Wed</span>
+                          <span>Thu</span>
+                          <span>Fri</span>
+                          <span>Sat</span>
+                          <span>Sun</span>
+                        </div>
+                        <div class="dates" id="DayShow"></div>
+                    </div>
+                    <div id="showPersonal"></div>
+                </div>
+                <div class="col-xl-8 mt-2">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="card p-4">
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="col-2 text-right">
+                                            <h3>แผนก</h3>
+                                        </div>
+                                        <div class="col-4">
+                                            <select name="find_department" id="find_department" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="showPositionShift"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+<style>
+    .modal-lg{
+        width: 60% !important;
+        max-width: 60% !important;
+        min-width: 60% !important;
+    }
+    #shiftManagementModal .modal-body{
+        height: 70vh !important;
+        max-height: 70vh !important;
+        min-height: 70vh !important;
+    }
+    #shiftManagementModal hr{
+        border-top: 1px solid rgb(0 0 0)
+    }
+</style>
+<div class="modal fade" id="shiftManagementModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="shiftManagementLabel"></h4>
+          <button type="button" class="close" onclick="shiftManagementModalClose()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row d-flex justify-content-center">
+                <div class="col-3 d-flex align-items-center justify-content-end">
+                    เจ้าหน้าที่/บุคลากร
+                </div>
+                <div class="col-4 pl-0">
+                    <select name="add_personal" id="add_personal" class="form-control" ></select>
+                </div>
+                <div class="col-1 pl-0">
+                    <button type="button" class="btn btn-success"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+            <hr class="w-100 my-2 mx-0">
+            <div class="row">
+                <div class="col-4">
+                    <input type="text" class="form-control" value="นางสาว อรอนงค์ เป็นไทย" readonly>
+                </div>
+                <div class="col-7">
+                    <div class="row">
+                        <div class="col-4 pl-0">
+                            <div class="form-group d-flex align-items-center px-2 m-0 rounded " style="border: 1px solid #ced4da; background-color: #e9ecef; height: 38px;">
+                                <label for="is_case" class="m-0">
+                                    <input type="checkbox" value="1" id="is_case"> ประจำเคส
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-4 pl-0">
+                            <div class="form-group d-flex align-items-center px-2 m-0 rounded " style="border: 1px solid #ced4da; background-color: #e9ecef; height: 38px;">
+                                <label for="is_shift" class="m-0">
+                                    <input type="checkbox" value="1" id="is_shift"> เป็นกะ
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-4 pl-0">
+                            <select name="" id="" class="form-control" disabled>
+                                <option value="M">กะเช้า</option>
+                                <option value="A">กะบ่าย</option>
+                                <option value="N">กะดึก</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success">บันทึก</button>
+            <button type="button" class="btn btn-danger" onclick="shiftManagementModalClose()">ยกเลิก</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<script src="js/shiftManagement.js"></script>
