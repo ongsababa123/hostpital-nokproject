@@ -66,6 +66,9 @@ $(function() {
     $('#pet_follow').click(function() {
         $('#detail').load('html/petition_follow.html');
     });
+    $('#pet_approve').click(function() {
+        $('#detail').load('html/petition_approve.html');
+    });
     $('#contact').click(function() {
         $('#detail').load('html/contact.html');
     });

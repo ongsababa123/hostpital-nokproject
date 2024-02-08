@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 07, 2024 at 07:44 PM
+-- Generation Time: Feb 08, 2024 at 08:32 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -177,9 +177,11 @@ CREATE TABLE `petitions` (
 --
 
 INSERT INTO `petitions` (`id_petitions`, `Personal_ID`, `subject`, `name`, `position`, `duty`, `day`, `month`, `year`, `request`, `substitute`, `substitute_day`, `substitute_month`, `substitute_year`, `reason`, `return_day`, `return_month`, `return_year`, `status`, `date_upload`) VALUES
-(6, '111111', 'asdas', 'dasdas', 'dasdas', 'dasdasd', 1, 'มกราคม', 1, 'asdasd', 'asdasd', 1, 'มกราคม', 1, 'asdsa', 1, 'มกราคม', 1, 0, '2024-02-07 23:57:38'),
-(7, '111111', 'asdas', 'dasdas', 'dasdas', 'dasdasd', 1, 'มกราคม', 1, 'asdasd', 'asdasd', 1, 'มกราคม', 1, 'asdsa', 1, 'มกราคม', 1, 1, '2024-02-07 23:57:38'),
-(8, '111111', 'asdas', 'dasdas', 'dasdas', 'dasdasd', 1, 'มกราคม', 1, 'asdasd', 'asdasd', 1, 'มกราคม', 1, 'asdsa', 1, 'มกราคม', 1, 2, '2024-02-07 23:57:38');
+(6, '111111', 'asdas', 'dasdas', 'dasdas', 'dasdasd', 1, 'มกราคม', 1, 'asdasd', 'asdasd', 1, 'มกราคม', 1, 'asdsa', 1, 'มกราคม', 1, 2, '2024-02-07 23:57:38'),
+(7, '111111', 'asdas', 'dasdas', 'dasdas', 'dasdasd', 1, 'มกราคม', 1, 'asdasd', 'asdasd', 1, 'มกราคม', 1, 'asdsa', 1, 'มกราคม', 1, 1, '2024-02-06 23:57:38'),
+(8, '111111', 'asdas', 'dasdas', 'dasdas', 'dasdasd', 1, 'มกราคม', 2566, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 'eeee', 1, 'มกราคม', 1, 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', 1, 'มกราคม', 1, 1, '2024-02-09 23:57:38'),
+(9, '111111', 'asd', 'asdasdas', 'dasdas', 'das', 1, 'มกราคม', 1, 'dasdasd', 'asd', 11, 'มกราคม', 111, '1asdasdasd', 111, 'มกราคม', 11, 1, '2024-02-08 14:06:17'),
+(10, '111111', 'ฟหกหฟกฟหกฟห', 'กฟหกฟหก', 'หฟกฟหก', 'ฟหกฟหกฟหก', 11, 'มกราคม', 11111, 'asdasdasdasd', 'กหๆกฟหกฟหก', 12, 'มกราคม', 123, 'ฟหกหฟกหฟกฟห', 12, 'กรกฎาคม', 111, 1, '2024-02-08 14:09:23');
 
 -- --------------------------------------------------------
 
@@ -412,7 +414,7 @@ ALTER TABLE `personal`
 -- AUTO_INCREMENT for table `petitions`
 --
 ALTER TABLE `petitions`
-  MODIFY `id_petitions` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_petitions` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `position`

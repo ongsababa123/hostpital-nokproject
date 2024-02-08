@@ -41,11 +41,11 @@ if ($act == "create") {
 
 if ($act == "read") {
     // คำสั่ง SQL เพื่อดึงข้อมูล
-    $sql = "SELECT * FROM petitions WHERE Personal_ID = '$Personal_ID'";
+    // $sql = "SELECT * FROM petitions WHERE Personal_ID = '$Personal_ID'";
+    $sql = "SELECT id_petitions, Personal_ID, status, date_upload FROM petitions";
 
     // ทำการ execute คำสั่ง SQL
     $result = $conn->query($sql);
-    $data["Personal_ID"] = $Personal_ID;
 
     // ตรวจสอบว่ามีข้อมูลหรือไม่
     if ($result->num_rows > 0) {
@@ -60,6 +60,46 @@ if ($act == "read") {
     } else {
         echo json_encode(false);
     }
+}
+
+if ($act == "read_approve") {
+    // คำสั่ง SQL เพื่อดึงข้อมูล
+    // $sql = "SELECT id_petitions, Personal_ID, status, date_upload FROM petitions WHERE status = '1' OR Personal_ID = $Personal_ID'";
+    $sql = "SELECT id_petitions, Personal_ID, status, date_upload FROM petitions WHERE status = '1'";
+
+    // ทำการ execute คำสั่ง SQL
+    $result = $conn->query($sql);
+
+    // ตรวจสอบว่ามีข้อมูลหรือไม่
+    if ($result->num_rows > 0) {
+        // สร้างตัวแปร array เพื่อเก็บข้อมูล
+        $data = array();
+
+        // Loop รับข้อมูลและเก็บลงในตัวแปร array
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+        echo json_encode($data);
+    } else {
+        echo json_encode(false);
+    }
+}
+
+if ($act == "change_status") {
+    $id_petitions = isset($_POST['id_petitions']) ? $_POST['id_petitions'] : "";
+    $status = isset($_POST['status']) ? $_POST['status'] : "";
+
+    $sql = "UPDATE petitions SET status = '$status' WHERE id_petitions = '$id_petitions'";
+
+    if ($conn->query($sql) === TRUE) {
+        $msg["status"] = true;
+        $msg["msg"] = "บันทึกข้อมูลสําเร็จ";
+    } else {
+        $msg["status"] = false;
+        $msg["msg"] = "บันทึกข้อมูลไม่สําเร็จ";
+    }
+
+    echo json_encode($msg);
 }
 
 ?>
