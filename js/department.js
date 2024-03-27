@@ -104,7 +104,6 @@ function display(act) {
                     sSortAscending: ": เปิดใช้งานการเรียงข้อมูลจากน้อยไปมาก",
                     sSortDescending: ": เปิดใช้งานการเรียงข้อมูลจากมากไปน้อย"
                 }
-
             }
         });
 

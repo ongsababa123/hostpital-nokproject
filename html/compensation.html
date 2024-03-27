@@ -42,19 +42,53 @@
                                     <option value="ผู้ช่วยพยาบาล">ผู้ช่วยพยาบาล</option>
                                 </select>
                             </div>
+                            <div class="col-sm-2">
+                                <label class="col-sm-12 col-form-label">เลือกเดือนและปี</label>
+                                <input type="month" class="form-control" id="month_year_select">
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="col-sm-12 col-form-label">&nbsp;</label>
+                                <button class="btn btn-danger" onclick="print_pdf()">Print PDF <i class="fas fa-file-pdf"></i> </ิ>
+                            </div>
                         </div>
                         <br />
-                        <table class="table datatable">
+                        <table id="example1" class="table">
                             <thead>
                                 <tr>
-                                    <th><b>N</b>ame</th>
-                                    <th>Ext.</th>
-                                    <th>City</th>
-                                    <th data-type="date" data-format="YYYY/DD/MM">Start Date</th>
-                                    <th>Completion</th>
+                                    <th style="width: 10px;background-color: #658ABF;color: floralwhite; vertical-align: middle;"
+                                        class="text-center" rowspan="2">ลำดับ
+                                    </th>
+                                    <th style="width: 10px;background-color: #658ABF;color: floralwhite; vertical-align: middle;"
+                                        class="text-center" rowspan="2">ยศ - ชื่อ
+                                    </th>
+                                    <th style="width: 10px;background-color: #658ABF;color: floralwhite; vertical-align: middle;"
+                                        class="text-center" rowspan="2" id="th_2" name="th_2">แผนก
+                                    </th>
+                                    <th style="width: 10px;background-color: #658ABF;color: floralwhite; vertical-align: middle;"
+                                        class="text-center" rowspan="2" id="th_3" name="th_3">ตำแหน่ง
+                                    </th>
+                                    <th style="width: 10px;background-color: #658ABF;color: floralwhite; vertical-align: middle;"
+                                        class="text-center" rowspan="2">วันปฎิบัติราชการ
+                                    </th>
+                                    <th style="width: 130px; background-color: #658ABF;color: floralwhite; font-weight: 500;"
+                                        class="text-center" colspan="3">
+                                        วันปฎิบัติราชการ
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th class="text-center" style="background-color: #E2EEFF; font-weight: 400;">
+                                        จำนวนวัน
+                                    </th>
+                                    <th class="text-center" style="background-color: #E2EEFF; font-weight: 400;">
+                                        อัตราวันละ
+                                    </th>
+                                    <th class="text-center" style="background-color: #E2EEFF; font-weight: 400;">
+                                        รวม
+                                    </th>
                                 </tr>
                             </thead>
-                            <tbody id="tbody"></tbody>
+                            <tbody>
+                            </tbody>
                         </table>
                         <!-- End Default Table Example -->
                     </div>
@@ -67,27 +101,186 @@
 
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
-<script src="js/compensation.js"></script>
 <script>
     var prg = "php/compensation.php";
+    var searching = "";
     $(document).ready(function () {
-        $.post(prg, { act: "get_data_department" }, function (data, status) {
-            row = JSON.parse(data);
-        });
+        table_show_department = true;
+        table_show_position = true;
+        var currentDate = new Date();
+        var year = currentDate.getFullYear();
+        var month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 because January is 0
+        var defaultValue = year + '-' + month;
+        document.getElementById('month_year_select').value = defaultValue;
+        get_dataTable_personal();
     });
 
-    function get_dataTable_personal() {
-        $.post(prg, { act: "get_dataTable_personal" }, function (data, status) {
-            
-        })
-    }
-    // function personal() {
-    //     let prg = "php/department.php";
-    //     $.post(prg, { act: "get_data_department" }, function (data, status) {
+    $('#department_select').change(function () {
+        var selectedValue = $(this).val();
+        // if (selectedValue == "all") {
+        //     table_show_department = true;
+        // } else {
+        //     table_show_department = false;
+        // }
+        get_dataTable_personal();
+    });
+    $('#position_select').change(function () {
+        var selectedValue = $(this).val();
+        // if (selectedValue == "all") {
+        //     table_show_position = true;
+        // } else {
+        //     table_show_position = false;
+        // }
+        get_dataTable_personal();
+    });
+    $('#month_year_select').change(function () {
+        get_dataTable_personal();
+    });
 
-    //         // $.each(row, function (index, obj) {
-    //         //     $("#Personal_ID").append("<option value='" + obj.Personal_ID + "'>" + obj.Fname + '&nbsp;&nbsp;' + obj.Lname + "</option>");
-    //         // })
-    //     })
-    // }
+    function print_pdf (){
+        var department = $("#department_select").val();
+        var position = $("#position_select").val();
+        var month_year = $("#month_year_select").val();
+        var url = "read_pdf_compensation.php?department=" + department + "&position=" + position + "&month_year=" + month_year + "&searching=" + searching;
+        window.open(url, '_blank'); // เปิดหน้าใหม่ในหน้าต่างใหม่
+
+        // window.location.href = "php/compensation.php?act=print_pdf";
+    }
+    function get_dataTable_personal() {
+
+        if ($.fn.DataTable.isDataTable('#example1')) {
+            $('#example1').DataTable().destroy();
+        }
+        $('#example1').DataTable({
+            "processing": true,
+            "pageLength": 5,
+            "lengthMenu": [5, 10, 20, 50, 100, 200, 500],
+            "pagingType": "full_numbers",
+            'serverSide': true,
+            'ajax': {
+                'url': "php/compensation.php",
+                'data': function (d) {
+                    d.act = "get_dataTable_personal";
+                    d.department = $("#department_select").val();
+                    d.position = $("#position_select").val();
+                    d.shift = $("#month_year_select").val();
+                },
+                'type': 'GET',
+            },
+            "responsive": true,
+            "lengthChange": true,
+            "autoWidth": false,
+            "searching": true,
+            "ordering": false,
+            "scrollX": false,
+            "oLanguage": {
+                sEmptyTable: "ไม่มีข้อมูลในตาราง",
+                sInfo: "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว",
+                sInfoEmpty: "แสดง 0 ถึง 0 จาก 0 แถว",
+                sInfoFiltered: "(กรองข้อมูล _MAX_ ทุกแถว)",
+                sInfoPostFix: "",
+                sInfoThousands: ",",
+                sLengthMenu: "แสดง _MENU_ แถว",
+                sLoadingRecords: "กำลังโหลดข้อมูล...",
+                sProcessing: "กำลังดำเนินการ...",
+                sSearch: "ค้นหา ชื่อ - สกุล: ",
+                sZeroRecords: "ไม่พบข้อมูล",
+                oPaginate: {
+                    sFirst: "หน้าแรก",
+                    sPrevious: "ก่อนหน้า",
+                    sNext: "ถัดไป",
+                    sLast: "หน้าสุดท้าย"
+                },
+                oAria: {
+                    sSortAscending: ": เปิดใช้งานการเรียงข้อมูลจากน้อยไปมาก",
+                    sSortDescending: ": เปิดใช้งานการเรียงข้อมูลจากมากไปน้อย"
+                }
+            },
+            "drawCallback": function (settings) {
+                var daData = settings.json.data;
+                searching = settings.json.searchValue
+            },
+            'columns': [
+                {
+                    'data': null,
+                    'class': 'text-center',
+                    'render': function (data, type, row, meta) {
+                        return '<div style="color: rgba(0, 123, 255, 1);">' + (meta.settings.oAjaxData.start += 1) + '</div>';
+                    }
+                },
+                {
+                    'data': null,
+                    'class': 'text-left',
+                    'width': 400,
+                    'render': function (data, type, row, meta) {
+                        return data.prefixCode + ' ' + data.Fname + ' ' + data.Lname;
+                    }
+                },
+                {
+                    'data': null,
+                    'class': 'text-center departCode',
+                    'visible': table_show_department,
+                    'width': 200,
+                    'render': function (data, type, row, meta) {
+                        return data.departCode;
+                    }
+                },
+                {
+                    'data': null,
+                    'class': 'text-center positCode',
+                    'visible': table_show_position,
+                    'width': 200,
+                    'render': function (data, type, row, meta) {
+                        return data.positCode;
+                    }
+                },
+                {
+                    'data': null,
+                    'class': 'text-left',
+                    'width': 200,
+                    'render': function (data, type, row, meta) {
+                        var html_date = '';
+                        if (data.data_shift == '') {
+                            html_date = '<div style="color: red;">ไม่มีการปฎิบัติราชการ</div>';
+                        } else {
+                            data.data_shift.forEach((element, index) => {
+                                var date = element.shift_date.split('-');
+                                html_date += date[2] + ',';
+                                if ((index + 1) % 10 === 0) { // เพิ่มเงื่อนไขเพื่อเช็คว่าค่าตัวแปรครบ 10 ครั้งหรือไม่
+                                    html_date += '<br>'; // เพิ่มบรรทัดใหม่เมื่อครบ 10 ครั้ง
+                                }
+                            });
+                        }
+
+                        return html_date;
+                    }
+                },
+
+                {
+                    'data': null,
+                    'class': 'text-center',
+                    'width': 300,
+                    'render': function (data, type, row, meta) {
+                        return data.data_shift.length;
+                    }
+                },
+                {
+                    'data': null,
+                    'class': 'text-center',
+                    'width': 300,
+                    'render': function (data, type, row, meta) {
+                        return data.salary.toLocaleString(); // ใช้เพื่อให้ค่าเลขถูกแสดงในรูปแบบที่มีเครื่องหมาย , เมื่อเป็นหลักพันขึ้นไป
+                    }
+                },
+                {
+                    'data': null,
+                    'class': 'text-center',
+                    'width': 300,
+                    'render': function (data, type, row, meta) {
+                        return (data.salary * data.data_shift.length).toLocaleString();
+                    }
+                },
+            ],
+        });
+    };
 </script>
