@@ -8,11 +8,11 @@
     if($act == 'login'){
         $complete = json_decode($complete);
         $invalid = json_decode($invalid);
-        $sql = "select * from personal where Personal_ID = '$username'";
+        $sql = "select * from personal where Personal_ID = '{$username}'";
         $result = $conn->query($sql);
         if($result -> num_rows == 1){
             $row = $result->fetch_assoc();
-            if($username == $row["Personal_ID"] && hash("sha256",$pass) == $row["Password"]){
+            if($username == $row["Personal_ID"] && hash('sha256', $pass) == $row["Password"]){
                 $sql = "select id,Personal_ID,prefixCode,Fname,Lname,positCode,departCode,accessCode,is_leader from personal where id = {$row['id']}";
                 $result = $conn->query($sql);
                 if($result -> num_rows == 1){

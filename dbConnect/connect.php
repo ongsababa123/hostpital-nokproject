@@ -2,7 +2,7 @@
     $dbHost = "localhost";
     $dbUser = "root";
     $dbPass = "";
-    $dbName = "hostpital";
+    $dbName = "host";
 
     $conn = new mysqli ($dbHost,$dbUser,$dbPass,$dbName);
     if($conn -> connect_error){

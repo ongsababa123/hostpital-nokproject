@@ -1,0 +1,57 @@
+<main id="main" class="main">
+
+    <section class="section">
+        <div class="col-xl-12">
+            <div class="card-header alert-light text-white" style="background-image: linear-gradient(-90deg, #5bc1f0 , rgb(76, 122, 238), rgb(28, 114, 243));">บันทึกการปฎิบัติงานพิเศษ</div>
+            <div class="card p-4">
+                <form action="" id="specialShiftForm">
+                    <div class="row">
+                        <input type="hidden" name="special_edit_id" id="special_edit_id">
+                        <div class="col-4">
+                            <label for="special_personal">เจ้าหน้าที่/บุคลากร</label>
+                            <select id="special_personal" name="special_personal" class="form-select" required></select>
+                        </div>
+                        <div class="col-2">
+                            <label for="special_date">วันที่ปฏิบัติงาน</label>
+                            <input type="date" id="special_date" name="special_date" class="form-control" required>
+                        </div>
+                        <div class="col-2">
+                            <label for="special_time">เวลาปฏิบัติงาน</label>
+                            <input type="time" id="special_time" name="special_time" class="form-control" required>
+                        </div>
+                        <div class="col-4">
+                            <label for="special_patient">ชื่อผู้ป่วย</label>
+                            <input type="text" id="special_patient" name="special_patient" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <label for="special_payment">ค่าตอบแทน</label>
+                            <input type="number" id="special_payment" name="special_payment" value="0" min="0" class="form-control text-right" required>
+                        </div>
+                        <div class="col-9">
+                            <label for="special_detail">รายละเอียดงาน</label>
+                            <input type="text" id="special_detail" name="special_detail" class="form-control" required>
+                        </div>
+                        <div class="col-1">
+                            <label for=" ">&nbsp;</label>
+                            <button type="submit" id="btnSave" class="btn btn-success form-control" style="font-size: 14px;">บันทึก</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class = 'card'>
+                <div class = 'card-header alert-light text-white'style ='background-image: linear-gradient(rgb(76, 122, 238), rgb(28, 114, 243));'>
+                    รายการบันทึกการปฎิบัติงานพิเศษ <button type='button' class='btn btn-success' style='float: right;' id="add_button"><i class = 'fas fa-plus'></i>&nbsp;&nbsp;เพิ่ม</button>
+                </div>
+                <div class='card-body'>
+                    <br>
+                    <div id="showSpecialShiftList"></div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+</main>
+
+<script src="js/specialShiftManagement.js"></script> 

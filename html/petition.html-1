@@ -1,5 +1,5 @@
 <main id="main" class="main">
-    <div class="pagetitle">
+    <!-- <div class="pagetitle">
         <h1>แลกเวลาปฏิบัติงาน</h1>
         <nav>
             <ol class="breadcrumb">
@@ -7,10 +7,10 @@
                 <li class="breadcrumb-item">คำร้อง</li>
             </ol>
         </nav>
-    </div>
+    </div> -->
     <!-- End Page Title -->
 
-    <section class="section">
+    <!-- <section class="section">
         <div class="col-xl-12">
             <div class="card p-4">
                 <form action="javascript:void(0)" id="petitionform" method="post">
@@ -145,10 +145,10 @@
                 </form>
             </div>
         </div>
-    </section>
+    </section> -->
 </main>
 <!-- End #main -->
 
 <!-- Template Main JS File -->
-<script src="assets/js/main.js"></script>
-<script src="js/petition.js"></script>
+<!-- <script src="assets/js/main.js"></script>
+<script src="js/petition.js"></script> -->

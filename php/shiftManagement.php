@@ -9,12 +9,23 @@
     $find_position = isset($_POST['find_position']) ? $_POST['find_position'] : "";
     $currentDateSelect = isset($_POST['currentDateSelect']) ? $_POST['currentDateSelect'] : "";
 
+    $depart_code = isset($_POST['depart_code']) ? $_POST['depart_code'] : '';
+    $position_code = isset($_POST['position_code']) ? $_POST['position_code'] : '';
+    $idEdit_arr = isset($_POST['idEdit_arr']) ? json_decode($_POST['idEdit_arr']) : [];
+    $personalId_arr = isset($_POST['personalId_arr']) ? json_decode($_POST['personalId_arr']) : [];
+    $personalShift_arr = isset($_POST['personalShift_arr']) ? json_decode($_POST['personalShift_arr']) : [];
+    $presonalShiftType_arr = isset($_POST['presonalShiftType_arr']) ? json_decode($_POST['presonalShiftType_arr']) : [];
+
+    $cookie = $_COOKIE['hostpital'];
+    $updated_by = base64_decode(json_decode(base64_decode($cookie))->Personal_ID);
+
     if($act == "departmentList"){
         $sql = "SELECT * FROM `department` WHERE `departIsDelete` = '0'";
         $result = $conn->query($sql);
         echo json_encode($result->fetch_all(MYSQLI_ASSOC));
     }
     if($act == "personaltList"){
+        $data = [];
         $sql = "SELECT 
                     a.*, 
                     b.prefixName
@@ -22,13 +33,30 @@
                     `personal` a
                     LEFT JOIN `prefix` b ON a.`prefixCode` = b.`prefixCode`
                 WHERE 
-                    a.`is_active` = '1' 
-                    AND a.`is_delete` = '0'
-                    AND a.`positCode` = '$find_position'
+                    a.`positCode` = '$find_position'
                     AND a.`departCode` = '$find_department'
                 ";
         $result = $conn->query($sql);
-        echo json_encode($result->fetch_all(MYSQLI_ASSOC));
+        $data['personal'] = $result->fetch_all(MYSQLI_ASSOC);
+
+        $sql = "SELECT
+                    a.*,
+                    b.Fname,
+                    b.Lname,
+                    c.prefixName
+                FROM 
+                    `shift_schedule` a
+                    LEFT JOIN `personal` b ON a.`Personal_ID` = b.`Personal_ID`
+                    LEFT JOIN `prefix` c ON b.`prefixCode` = c.`prefixCode`
+                WHERE 
+                    a.`positCode` = '$find_position'
+                    AND a.`departCode` = '$find_department'
+                    AND a.`shift_date` = '$currentDateSelect'
+                    AND a.`shift_status` = '1'
+                ";
+        $result = $conn->query($sql);
+        $data['shift'] = $result->fetch_all(MYSQLI_ASSOC);
+        echo json_encode($data);
     }
     
     if($act == "shiftManageList"){
@@ -100,6 +128,59 @@
         // $sql = "SELECT * FROM `shift_schedule` WHERE `shift_date` = '$currentDateSelect' AND `shift_status` = '1' AND `departCode` = '$find_department'";
         // $result = $conn->query($sql);
         // echo json_encode($result->fetch_all(MYSQLI_ASSOC));
+    }
+
+    if($act == "add"){
+        $state = true;
+        $updateId = $idEdit_arr;
+        $updateId = array_filter($updateId, fn($value) => !is_null($value) && $value != '');
+        if(count($updateId) > 0){
+            $sql = "UPDATE `shift_schedule` SET `shift_status` = '0' WHERE id NOT IN (".implode(",", $updateId).")";
+            if(!$conn->query($sql)) $state = false;
+        }
+
+        for ($i=0; $i < count($personalId_arr) ; $i++) { 
+            $sql = "INSERT INTO `shift_schedule` (
+                        `id`,
+                        `Personal_ID`,
+                        `positCode`,
+                        `departCode`,
+                        `shift_date`,
+                        `is_shift`,
+                        `shift_type`,
+                        `shift_status`,
+                        `created_by`,
+                        `created_date`,
+                        `updated_by`,
+                        `updated_date`
+                    ) VALUES (
+                        ".($idEdit_arr[$i] != "" ? "'".$idEdit_arr[$i]."'" : "NULL").",
+                        '".$personalId_arr[$i]."',
+                        '".$position_code."',
+                        '".$depart_code."',
+                        '".$currentDateSelect."',
+                        '".$personalShift_arr[$i]."',
+                        ".($personalShift_arr[$i] == "1" ? "'".$presonalShiftType_arr[$i]."'" : "NULL").",
+                        '1',
+                        '$updated_by',
+                        now(),
+                        '$updated_by',
+                        now()
+                    ) ON DUPLICATE KEY UPDATE
+                        `is_shift` = '".$personalShift_arr[$i]."',
+                        `shift_type` = ".($personalShift_arr[$i] == "1" ? "'".$presonalShiftType_arr[$i]."'" : "NULL").",
+                        `updated_by` = '$updated_by',
+                        `updated_date` = now()
+                    ";
+            if(!$conn->query($sql)) {
+                $state = false;
+            }
+        }
+
+        if($state) {
+            $conn->commit();
+            echo $complete;
+        }else echo $invalid;
     }
 
 ?>

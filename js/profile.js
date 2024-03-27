@@ -1,11 +1,12 @@
 var act = "create";
 var prefix = [];
-var prg = "php/prefix.php"
+var prg = "php/department.php"
 $(function() {
+    personal()
     display('read');
-    $("#prefixCode").focus();
+    $("#departCode").focus();
 
-    $("form#prefixform").submit(function() {
+    $("form#departform").submit(function() {
         var formData = new FormData(this);
         formData.append("act", act);
         $.ajax({
@@ -28,36 +29,48 @@ $(function() {
     })
 })
 
+function personal() {
+    let prg = "php/department.php";
+    $.post(prg, { act: "personal" }, function(data, status) {
+        row = JSON.parse(data);
+        $.each(row, function(index, obj) {
+            $("#Personal_ID").append("<option value='" + obj.Personal_ID + "'>" + obj.Fname + '&nbsp;&nbsp;' + obj.Lname + "</option>");
+        })
+    })
+}
+
 function display(act) {
     $.post(prg, { "act": act }, function(data, status) {
         row = "<div class = 'card'>"
-        row += "<div class = 'card-header alert-light text-white' style ='background-image: linear-gradient(rgb(76, 122, 238), rgb(28, 114, 243));'>รายละเอียดข้อมูล <button type='button' class='btn btn-success' style='float: right;' onclick = add()><i class = 'fas fa-plus'></i>&nbsp;&nbsp;เพิ่ม</button>"
+        row += "<div class = 'card-header alert-light text-white'style ='background-image: linear-gradient(rgb(76, 122, 238), rgb(28, 114, 243));'>รายละเอียดข้อมูล <button type='button' class='btn btn-success' style='float: right;' onclick = add()><i class = 'fas fa-plus'></i>&nbsp;&nbsp;เพิ่ม</button>"
         row += "</div>"
         row += "<div class = 'card-body'><br>"
-        row += "<table class = 'table table-hover' id='prefixTable'>"
+        row += "<table class = 'table table-hover' id='departTable'>"
         row += "<thead class = 'table-info'>"
         row += "<tr>"
-        row += "<th>รหัสคำนำหน้า</th>"
-        row += "<th>ชื่อคำนำหน้า</th>"
+        row += "<th>รหัสแผนก/หน่วยงาน</th>"
+        row += "<th>ชื่อแผนก/หน่วยงาน</th>"
+        row += "<th>หัวหน้างาน</th>"
         row += "<th>ดำเนินการ</th>"
         row += "</tr>"
         row += "</thead>"
         row += "<tbody>"
-        prefix = JSON.parse(data);
-        $.each(prefix, function(index, obj) {
+        depart = JSON.parse(data);
+        $.each(depart, function(index, obj) {
             row += "<tr>"
-            row += "<td>" + obj.prefixCode + "</td>"
-            row += "<td>" + obj.prefixName + "</td>"
+            row += "<td>" + obj.departCode + "</td>"
+            row += "<td>" + obj.departName + "</td>"
+            row += "<td>" + obj.prefixName + '' + obj.Fname + '&nbsp&nbsp' + obj.Lname + "</td>"
             row += "<td><button type='button' class='btn btn-warning'onclick = edit('" + index + "')><i class = 'fa fa-edit'></i></button> &nbsp;&nbsp;"
-            row += "<button type ='button' class ='btn btn-danger' onclick = del('" + obj.prefixCode + "')><i class = 'fas fa-trash-alt'> </i></button ></td>"
+            row += "<button type ='button' class ='btn btn-danger' onclick = del('" + obj.departCode + "')><i class = 'fas fa-trash-alt'> </i></button ></td>"
             row += "</tr>"
         });
         row += "</tbody>"
         row += "</table>"
         row += "</div>"
         row += "</div>"
-        $("#showprefix").html(row);
-        $('#prefixTable').DataTable({
+        $("#showdepart").html(row);
+        $('#departTable').DataTable({
             columnDefs: [
                 { orderable: false, targets: [-1] },
 
@@ -96,43 +109,4 @@ function display(act) {
         });
 
     });
-}
-
-function edit(i) {
-    act = "update";
-    $("#prefixCode").val(prefix[i].prefixCode);
-    $("#prefixName").val(prefix[i].prefixName);
-    $("#prefixCode").prop("readonly", true);
-    $("#prefixName").prop("readonly", false);
-    $("#btnSave").prop("disabled", false);
-    $("#prefixName").focus();
-}
-
-function clear() {
-    act = 'create'
-    $("#prefixCode").val("");
-    $("#prefixName").val("");
-    $("#prefixCode").prop("readonly", true);
-    $("#prefixName").prop("readonly", true);
-    $("#btnSave").prop("disabled", true);
-}
-
-function del(prefixCode) {
-    if (confirm('ต้องการลบ ? ')) {
-        $.post(prg, { prefixCode, act: 'delete' }, function(data, status) {
-            display('read');
-            alert(data)
-        })
-    }
-
-}
-
-function add() {
-    act = 'create'
-    $("#prefixCode").val("");
-    $("#prefixName").val("");
-    $("#prefixCode").focus();
-    $("#prefixCode").prop("readonly", false);
-    $("#prefixName").prop("readonly", false);
-    $("#btnSave").prop("disabled", false);
 }

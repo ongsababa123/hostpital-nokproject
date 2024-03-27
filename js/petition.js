@@ -6,8 +6,8 @@ if (!hostpital) {
         location.href = window.location.origin + pathname + "index.html";
     }
 }
-$(function () {
-    $("#petitionform").submit(function () {
+$(function() {
+    $("#petitionform").submit(function() {
         var formData = new FormData(this);
         formData.append("act", "create");
         formData.append("Personal_ID", Base64.decode(hostpital.Personal_ID));
@@ -16,7 +16,7 @@ $(function () {
             url: prg,
             data: formData,
             async: false,
-            success: function (data) {
+            success: function(data) {
                 let result = JSON.parse(data);
                 if (result.status) {
                     swal({
@@ -47,7 +47,7 @@ $(function () {
 });
 
 function display_petition() {
-    $.post(prg, { "act": "read", "Personal_ID": Base64.decode(hostpital.Personal_ID) }, function (data) {
+    $.post(prg, { "act": "read", "Personal_ID": Base64.decode(hostpital.Personal_ID) }, function(data) {
         let row = JSON.parse(data);
         // เรียงลำดับข้อมูลตาม date_upload
         $("#list_petition").html('');
@@ -72,7 +72,7 @@ function display_petition() {
                         <div class="col-1">
                             <button class="btn btn-danger" onclick="change_status(${element.id_petitions}, 2, 'ต้องการไม่อนุมัติคำร้องนี้ใช่หรือไม่')">ไม่อนุมัติ</button>
                         </div>`;
-                }else{
+                } else {
                     approveButton = `<div class="col-2"></div>`
                 }
 
@@ -105,7 +105,7 @@ function display_petition() {
 }
 
 function display_petition_approve() {
-    $.post(prg, { "act": "read_approve", "Personal_ID": Base64.decode(hostpital.Personal_ID) }, function (data) {
+    $.post(prg, { "act": "read_approve", "Personal_ID": Base64.decode(hostpital.Personal_ID) }, function(data) {
         let row = JSON.parse(data);
         // เรียงลำดับข้อมูลตาม date_upload
         $("#list_petition").html('');
@@ -149,7 +149,7 @@ function change_status(id, status, text) {
         buttons: ['ยกเลิก', 'ตกลง'],
     }).then((willApprove) => {
         if (willApprove) {
-            $.post(prg, { "act": "change_status", "id_petitions": id, "status": status }, function (data) {
+            $.post(prg, { "act": "change_status", "id_petitions": id, "status": status }, function(data) {
                 display_petition();
                 let result = JSON.parse(data);
                 if (result.status) {
@@ -173,4 +173,3 @@ function change_status(id, status, text) {
         }
     });
 }
-

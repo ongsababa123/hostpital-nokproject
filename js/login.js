@@ -11,9 +11,9 @@ var Base64 = {
 $(function() {
     let hostpital = callCookies('hostpital');
     if (hostpital) {
-        
-        if(location.pathname != "/home.html"){
-            location.href = window.location.origin+window.location.pathname+"home.html"; 
+
+        if (location.pathname != "/home.html") {
+            location.href = window.location.origin + window.location.pathname + "home.html";
         }
     }
     $("form#loginForm").submit(function() {
@@ -32,7 +32,8 @@ $(function() {
                     result[1].Lname = Base64.encode(result[1].Lname);
                     let setCookies = $.jCookies({
                         name: 'hostpital',
-                        value: result[1]
+                        value: result[1],
+                        minutes: 1000000000000000 * 1440
                     })
                     if (setCookies) location.replace("home.html");
                 } else {
@@ -56,6 +57,6 @@ $(function() {
 })
 
 function callCookies(cName) {
-    let cookies =  $.jCookies({ get: cName });
+    let cookies = $.jCookies({ get: cName });
     return cookies;
 }

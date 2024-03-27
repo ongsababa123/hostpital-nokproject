@@ -42,25 +42,27 @@ $(function() {
     $("#accessCode").change(function() {
         $("#Password").focus();
     });
-    $("#Password").keyup(function(){
-        let pass = $(this).val(),conPass = $("#Password2").val();
+    $("#Password").keyup(function() {
+        let pass = $(this).val(),
+            conPass = $("#Password2").val();
         clearTimeout(passTimeout);
         passTimeout = setTimeout(() => {
-            if(pass === conPass){
-                $("#btnSave").prop("disabled",false);
-            }else{
-                $("#btnSave").prop("disabled",true);
+            if (pass === conPass) {
+                $("#btnSave").prop("disabled", false);
+            } else {
+                $("#btnSave").prop("disabled", true);
             }
         }, 500);
     });
-    $("#Password2").keyup(function(){
-        let conPass = $(this).val(),pass = $("#Password").val();
+    $("#Password2").keyup(function() {
+        let conPass = $(this).val(),
+            pass = $("#Password").val();
         clearTimeout(passTimeout);
         passTimeout = setTimeout(() => {
-            if(pass === conPass){
-                $("#btnSave").prop("disabled",false);
-            }else{
-                $("#btnSave").prop("disabled",true);
+            if (pass === conPass) {
+                $("#btnSave").prop("disabled", false);
+            } else {
+                $("#btnSave").prop("disabled", true);
             }
         }, 500);
     });
@@ -76,24 +78,24 @@ $(function() {
             async: false,
             success: function(data) {
                 let result = JSON.parse(data);
-                if(result.status){
+                if (result.status) {
                     alert(result.msg);
                     clear();
                     display('read');
                     // $("#showdata").html(data);
-                }else{
+                } else {
                     alert(result.msg);
                     // $("#showdata").html(data)
                 }
                 // alert("success");
                 // 
-                
+
             },
             cache: false,
             contentType: false,
             processData: false
         });
-        
+        clear();
         return false;
     })
 
@@ -177,7 +179,7 @@ function display(act) {
 
 function edit(i) {
     act = "update";
-    $("#Personal_ID").val(per[i].Personal_ID).prop("readonly",true);
+    $("#Personal_ID").val(per[i].Personal_ID).prop("readonly", true);
     $("#prefixCode").val(per[i].prefixCode);
     $("#Fname").val(per[i].Fname);
     $("#Lname").val(per[i].Lname);

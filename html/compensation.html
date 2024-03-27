@@ -1,0 +1,93 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>ค่าตอบแทนการปฎิบัติงาน</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">หน้าหลัก</a></li>
+                <li class="breadcrumb-item">ค่าตอบแทนการปฎิบัติงาน</li>
+            </ol>
+        </nav>
+    </div>
+    <!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Default Table</h5>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <label class="col-sm-12 col-form-label">เลือกแผนก</label>
+                                <select class="form-select" aria-label="Default select example" id="department_select"
+                                    name="department_select">
+                                    <option selected value="all">ทั้งหมด</option>
+                                    <option value="แผนกฉุกเฉิน">แผนกฉุกเฉิน</option>
+                                    <option value="แผนกหอผู้ป่วยวิกฤต">แผนกหอผู้ป่วยวิกฤต</option>
+                                    <option value="แผนกหอผู้ป่วยภายใน">แผนกหอผู้ป่วยภายใน</option>
+                                    <option value="แผนกสูติ">แผนกสูติ</option>
+                                    <option value="ห้องผ่าตัด">ห้องผ่าตัด</option>
+                                    <option value="ห้องตรวจโรคผู้ป่วยนอก">
+                                        ห้องตรวจโรคผู้ป่วยนอก
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="col-sm-12 col-form-label">ตำแหน่ง</label>
+                                <select class="form-select" aria-label="Default select example" id="position_select"
+                                    name="position_select">
+                                    <option selected value="all">ทั้งหมด</option>
+                                    <option value="แพทย์">แพทย์</option>
+                                    <option value="พยาบาล">พยาบาล</option>
+                                    <option value="ผู้ช่วยพยาบาล">ผู้ช่วยพยาบาล</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br />
+                        <table class="table datatable">
+                            <thead>
+                                <tr>
+                                    <th><b>N</b>ame</th>
+                                    <th>Ext.</th>
+                                    <th>City</th>
+                                    <th data-type="date" data-format="YYYY/DD/MM">Start Date</th>
+                                    <th>Completion</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody"></tbody>
+                        </table>
+                        <!-- End Default Table Example -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<!-- End #main -->
+
+<!-- Template Main JS File -->
+<script src="assets/js/main.js"></script>
+<script src="js/compensation.js"></script>
+<script>
+    var prg = "php/compensation.php";
+    $(document).ready(function () {
+        $.post(prg, { act: "get_data_department" }, function (data, status) {
+            row = JSON.parse(data);
+        });
+    });
+
+    function get_dataTable_personal() {
+        $.post(prg, { act: "get_dataTable_personal" }, function (data, status) {
+            
+        })
+    }
+    // function personal() {
+    //     let prg = "php/department.php";
+    //     $.post(prg, { act: "get_data_department" }, function (data, status) {
+
+    //         // $.each(row, function (index, obj) {
+    //         //     $("#Personal_ID").append("<option value='" + obj.Personal_ID + "'>" + obj.Fname + '&nbsp;&nbsp;' + obj.Lname + "</option>");
+    //         // })
+    //     })
+    // }
+</script>

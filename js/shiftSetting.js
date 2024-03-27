@@ -31,6 +31,7 @@ $(function(){
         formData.append('afternoon_shift_count', JSON.stringify($("input[name='afternoon_shift_count[]']").map(function(){return $(this).val();}).get()));
         formData.append('night_shift_count', JSON.stringify($("input[name='night_shift_count[]']").map(function(){return $(this).val();}).get()));
         formData.append('shift_count', JSON.stringify($("input[name='shift_count[]']").map(function(){return $(this).val();}).get()));
+        formData.append('all_department', JSON.stringify($("input[name='all_department[]']").map(function(){return $(this).is(':checked') ? "1" : "0";}).get()));
         $.ajax({
             type: "POST",
             url: shiftSetting_prg,
@@ -56,11 +57,6 @@ $(function(){
             lastEle = ele[ele.length - 1];
         $(lastEle).prop("disabled",true);
 
-        if(ele.length == positionList.length ){
-            $(this).hide();
-        }else{
-            $(this).show();
-        }
         createSettingList(false);
     });
 
@@ -101,7 +97,7 @@ async function createSettingList(isClear = true){
                                 </div>
                                 <div class="col-2">
                                     <label for="">ตำแหน่ง</label>
-                                    <select name="position_id[]" class="form-control" required style="font-size: 14px;" ${ i < (result.length - 1)  ? "disabled" : ""}>
+                                    <select name="position_id[]" class="form-select" required style="font-size: 14px;" ${ i < (result.length - 1)  ? "disabled" : ""}>
                         `;
                     let checkUse = $("select[name='position_id[]']").map(function(){return $(this).val();}).get();
                     $.each(positionList,function(i_x, item_x){
@@ -119,7 +115,7 @@ async function createSettingList(isClear = true){
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-5">
                                     <div class="row" ${item.is_shift == "1" ? "" : 'style="display:none;"'}>
                                         <div class="col-4">
                                             <label for="">จำนวนกะเช้า</label>
@@ -139,6 +135,14 @@ async function createSettingList(isClear = true){
                                             <label for="">จำนวนเข้าเวร</label>
                                             <input type="number" class="form-control" min='1' name="shift_count[]" ${item.is_shift != "1" ? "required min='1' value='"+item.moring_shift_count+"'" : ""}>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <label for="">&nbsp;</label>
+                                    <div class="input-group d-flex pl-2 align-items-center" style="background: #e9ecef;height: 4vh;border-radius: 5px;border: 1px solid #ced4da;">
+                                        <label class="w-100 m-0">
+                                            <input type="checkbox" value='1' name='all_department[]' ${item.all_department == "1" ? "checked" : ""}> ทุกแผนก
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -182,7 +186,7 @@ async function createSettingList(isClear = true){
                             </label>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-5">
                         <div class="row" style="display:none;">
                             <div class="col-4">
                                 <label for="">จำนวนกะเช้า</label>
@@ -204,9 +208,23 @@ async function createSettingList(isClear = true){
                             </div>
                         </div>
                     </div>
+                    <div class="col-2">
+                        <label for="">&nbsp;</label>
+                        <div class="input-group d-flex pl-2 align-items-center" style="background: #e9ecef;height: 4vh;border-radius: 5px;border: 1px solid #ced4da;">
+                            <label class="w-100 m-0">
+                                <input type="checkbox" value='1' name='all_department[]'> ทุกแผนก
+                            </label>
+                        </div>
+                    </div>
                 </div>
                 `;
         $("#showSettingList").append(str);
+        let ele = $("select[name='position_id[]']");
+        if(ele.length == positionList.length ){
+            $("#addSettingList").hide();
+        }else{
+            $("#addSettingList").show();
+        }
     }
    
 }
